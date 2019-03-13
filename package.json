@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {
@@ -23,6 +24,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "contentful": "^7.4.0"
+    "bootstrap": "^4.3.1",
+    "contentful": "^7.4.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "react-bootstrap": "^1.0.0-beta.5"
   }
 }
