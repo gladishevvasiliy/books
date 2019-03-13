@@ -1,0 +1,14 @@
+.book-title {
+  margin-bottom: 20px;
+}
+.preview-column {
+  background: #ffcdd2;
+}
+.back-row {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.back-link:hover {
+  text-decoration: none;
+}

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header'
-import { Container, Col, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Container, Col, Row, Image, Table, Carousel } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as contentful from 'contentful'
 import { isNil } from 'lodash'
+import './style.css'
 
 export default class Book extends Component {
   state = {
@@ -32,18 +34,69 @@ export default class Book extends Component {
     if (isNil(book.preview)) return null
     return (
       <>
-        <Header />
         <Container>
+          <Row className="back-row">
+            <Link className="back-link" to={`/`}>
+              <FontAwesomeIcon icon="long-arrow-alt-left" />
+              {`   `}
+              Назад
+            </Link>
+          </Row>
           <Row>
-            <Col>
-              <h1>{book.name}</h1>
-              <h5>Номер по описи: {book.no}</h5>
-              <h5>Датировка: {book.year}</h5>
-              <h5>Происхождение: {book.location}</h5>
-              <h5>Автор: {book.publisher}</h5>
+            <Col md={4}>
+              <h1 className="book-title">{book.name}</h1>
+              <Table responsive>
+                <tbody>
+                  <tr>
+                    <td>Инвентарный номер</td>
+                    <td>{book.no}</td>
+                  </tr>
+                  <tr>
+                    <td>Место создания</td>
+                    <td>{book.location}</td>
+                  </tr>
+                  <tr>
+                    <td>Датировка</td>
+                    <td>{book.year}</td>
+                  </tr>
+                  <tr>
+                    <td>Размер</td>
+                    <td>{book.size}</td>
+                  </tr>
+                  <tr>
+                    <td>Полнота и сохранность</td>
+                    <td>{book.fullness}</td>
+                  </tr>
+                  <tr>
+                    <td>Автор</td>
+                    <td>{book.publisher}</td>
+                  </tr>
+                  <tr>
+                    <td>Файлы *.pdf</td>
+                    <td>
+                      {!isNil(book.bookFile) ? (
+                        <a href={`https:${book.bookFile.fields.file.url}`}>
+                          Загрузить
+                        </a>
+                      ) : null}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </Col>
-            <Col>
-              <img src={`https:${book.preview.fields.file.url}`} />
+            <Col md={8}>
+              {/* <Image src={`https:${book.preview.fields.file.url}`} fluid /> */}
+              <Carousel>
+                {book.examples.map(example => (
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={`https:${example.fields.file.url}`}
+                      alt="First slide"
+                    />
+                  </Carousel.Item>
+                ))}
+              </Carousel>
             </Col>
           </Row>
         </Container>
