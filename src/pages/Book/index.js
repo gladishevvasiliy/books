@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Col, Row, Image, Table, Carousel } from 'react-bootstrap'
+import { Container, Col, Row, Table, Carousel } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as contentful from 'contentful'
 import { isNil } from 'lodash'
@@ -85,7 +85,6 @@ export default class Book extends Component {
               </Table>
             </Col>
             <Col md={8}>
-              {/* <Image src={`https:${book.preview.fields.file.url}`} fluid /> */}
               <Carousel>
                 {book.examples.map(example => (
                   <Carousel.Item>

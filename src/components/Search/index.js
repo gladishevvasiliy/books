@@ -49,6 +49,7 @@ export default class Search extends Component {
     return (
       <Container>
         <Card className="search-container">
+          <Card.Header>Поиск</Card.Header>
           <Form
             className="search-form"
             onSubmit={this.formHandler}
