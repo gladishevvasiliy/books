@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Button, Container, CardDeck } from 'react-bootstrap'
+import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap'
 import { isNil } from 'lodash'
 import * as contentful from 'contentful'
 import Search from '../../components/Search'
@@ -36,48 +36,55 @@ export default class Main extends React.Component {
   render() {
     const { books } = this.state
     if (isNil(books)) return <h1>Загрузка...</h1>
-    const booksToRows = []
-    const size = 4
-    while (books.length > 0) booksToRows.push(books.splice(0, size))
-
     return (
       <>
         <Search getBooks={this.getBooks} />
         <Container className="main-container">
-          {booksToRows.map(row => (
-            <CardDeck className="book-row">
-              {row.map(book => (
-                <Card
-                  key={book.fields.no}
-                  className="book-item"
-                  style={{ width: '14rem' }}
-                >
-                  <Card.Img
-                    variant="top"
-                    src={`https:${book.fields.preview.fields.file.url}`}
-                  />
-                  <Card.Body className="card-gradient">
-                    <Card.Title>
-                      №{book.fields.no} {book.fields.name}
-                    </Card.Title>
-                    <Card.Text className="book-info">
-                      <small>
-                        Датировка: {book.fields.year}
-                        <br />
-                        Происхождение: {book.fields.location}
-                        <br />
-                        Автор: {book.fields.publisher}
-                      </small>
-                    </Card.Text>
-                  </Card.Body>
-                  <Card.Footer>
-                    <Link to={`book/${book.sys.id}`}>
-                      <Button variant="primary">Подробнее</Button>
-                    </Link>
-                  </Card.Footer>
-                </Card>
-              ))}
-            </CardDeck>
+          {books.map(book => (
+            <Card
+              key={book.fields.no}
+              style={{ width: 'auto' }}
+              className="card-book"
+            >
+              <Container>
+                <Row>
+                  <Col className="card-book-preview">
+                    <Image
+                      variant="top"
+                      src={`https:${book.fields.preview.fields.file.url}`}
+                      fluid
+                    />
+                  </Col>
+                  <Col>
+                    <Card.Body>
+                      <h3>
+                        №{book.fields.no} {book.fields.name}
+                      </h3>
+                      <Card.Text className="book-info">
+                        <p>
+                          Датировка: {book.fields.year}
+                          <br />
+                          Место создания: {book.fields.location}
+                          <br />
+                          Автор: {book.fields.publisher}
+                          <br />
+                          Размер: {book.fields.size}
+                          <br />
+                          Полнота и сохранность: {book.fields.fullness}
+                          <br />
+                          Автор: {book.fields.publisher}
+                        </p>
+                      </Card.Text>
+                    </Card.Body>
+                  </Col>
+                </Row>
+              </Container>
+              <Card.Footer className="text-right">
+                <Link to={`book/${book.sys.id}`}>
+                  <Button variant="primary">Подробнее</Button>
+                </Link>
+              </Card.Footer>
+            </Card>
           ))}
         </Container>
       </>
