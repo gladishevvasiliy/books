@@ -13,8 +13,8 @@ export default () => {
   return (
     <Navbar className="footer" fixed="bottom">
       <Nav className="mr-auto">
-        <Link to={`/about`}>
-          <Nav.Link href="/about">О Нас</Nav.Link>
+        <Link className="header-link nav-link" to={`/about`}>
+          О Нас
         </Link>
         <Nav.Link href="https://vk.com/kirovold">
           <FontAwesomeIcon icon={faVk} size="lg" color="#78909C" />

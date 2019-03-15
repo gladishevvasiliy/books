@@ -11,12 +11,10 @@ library.add(faScroll)
 export default () => {
   return (
     <Navbar className="header">
-      <Link to={`/`}>
-        <Navbar.Brand href="#home">
-          <FontAwesomeIcon icon={faScroll} color="#a1887f" />
-          {'   '}
-          Библиотека
-        </Navbar.Brand>
+      <Link to={`/`} className="navbar-brand">
+        <FontAwesomeIcon icon={faScroll} color="#a1887f" />
+        {'   '}
+        Библиотека
       </Link>
       <Nav className="mr-auto">
         <Link className="header-link nav-link" to={`/about`}>

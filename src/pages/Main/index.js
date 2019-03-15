@@ -1,14 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap'
+import { Route, Switch } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import PaginationComponent from '../../components/Pagination'
 import { isNil } from 'lodash'
 import * as contentful from 'contentful'
 import Search from '../../components/Search'
+import BookList from '../../components/BookList'
+
 import './style.css'
 
 export default class Main extends React.Component {
   state = {
-    books: [],
+    pages: [],
+    activePageNum: 0,
+    pageNums: [],
   }
 
   client = contentful.createClient({
@@ -29,63 +34,52 @@ export default class Main extends React.Component {
     this.client.getEntries(!isNil(options) ? options : { content_type: 'book' })
 
   setBooks = response => {
+    let i = 0
+    const pages = []
+    const pageNums = []
+    while (response.items.length > 0) {
+      pages.push(response.items.splice(0, 2))
+      pageNums.push(i)
+      i++
+    }
+
     this.setState({
-      books: response.items,
+      pages: pages,
+      pageNums: pageNums,
     })
   }
+
+  goToPage = pageNum => {
+    this.setState({
+      activePageNum: pageNum,
+    })
+  }
+
   render() {
-    const { books } = this.state
-    if (isNil(books)) return <h1>Загрузка...</h1>
+    const { pages, pageNums } = this.state
+    const { match } = this.props
+    if (pages.length === 0) return <h1>Загрузка...</h1>
+
     return (
       <>
         <Search getBooks={this.getBooks} />
         <Container className="main-container">
-          {books.map(book => (
-            <Card
-              key={book.fields.no}
-              style={{ width: 'auto' }}
-              className="card-book"
-            >
-              <Container>
-                <Row>
-                  <Col className="card-book-preview">
-                    <Image
-                      variant="top"
-                      src={`https:${book.fields.preview.fields.file.url}`}
-                      fluid
-                    />
-                  </Col>
-                  <Col>
-                    <Card.Body>
-                      <h3>
-                        №{book.fields.no} {book.fields.name}
-                      </h3>
-                      <Card.Text className="book-info">
-                        <p>
-                          Датировка: {book.fields.year}
-                          <br />
-                          Место создания: {book.fields.location}
-                          <br />
-                          Автор: {book.fields.publisher}
-                          <br />
-                          Размер: {book.fields.size}
-                          <br />
-                          Полнота и сохранность: {book.fields.fullness}
-                          <br />
-                          Автор: {book.fields.publisher}
-                        </p>
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Container>
-              <Card.Footer className="text-right">
-                <Link to={`book/${book.sys.id}`}>
-                  <Button variant="primary">Подробнее</Button>
-                </Link>
-              </Card.Footer>
-            </Card>
-          ))}
+          <PaginationComponent
+            pageNums={pageNums}
+            path={match.path}
+            activePageNum={0}
+          />
+          <Switch>
+            <Route
+              path={`${match.url}/:page`}
+              render={props => (
+                <BookList
+                  bookList={pages[props.match.params.page]}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
         </Container>
       </>
     )

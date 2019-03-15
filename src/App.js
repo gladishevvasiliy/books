@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Main from './pages/Main'
 import Book from './pages/Book'
@@ -17,7 +17,8 @@ class App extends Component {
       <>
         <Header />
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Redirect from="/home" exact to="/home/0" />
+          <Route path="/home" component={Main} />
           <Route path="/book/:id" component={Book} />
           <Route path="/about" component={About} />
         </Switch>
