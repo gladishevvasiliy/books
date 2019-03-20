@@ -12,7 +12,7 @@ export default () => {
   return (
     <Navbar className="header">
       <Link to={`/`} className="navbar-brand">
-        <FontAwesomeIcon icon={faScroll} color="#a1887f" />
+        <FontAwesomeIcon icon={faScroll} color="#212121" />
         {'   '}
         Библиотека
       </Link>

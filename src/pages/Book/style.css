@@ -12,3 +12,11 @@
 .back-link:hover {
   text-decoration: none;
 }
+
+.custom-link {
+  color:rgb(104, 72, 65);
+}
+
+.custom-link:hover {
+  color:rgb(48, 31, 28);
+}

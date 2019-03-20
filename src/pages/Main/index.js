@@ -6,6 +6,8 @@ import { isNil } from 'lodash'
 import * as contentful from 'contentful'
 import Search from '../../components/Search'
 import BookList from '../../components/BookList'
+import Book from '../Book'
+import About from '../About'
 
 import './style.css'
 
@@ -42,7 +44,6 @@ export default class Main extends React.Component {
       pageNums.push(i)
       i++
     }
-
     this.setState({
       pages: pages,
       pageNums: pageNums,
@@ -64,14 +65,11 @@ export default class Main extends React.Component {
       <>
         <Search getBooks={this.getBooks} />
         <Container className="main-container">
-          <PaginationComponent
-            pageNums={pageNums}
-            path={match.path}
-            activePageNum={0}
-          />
           <Switch>
+            <Route path="/book/:id" component={Book} />
+            <Route path="/about" component={About} />
             <Route
-              path={`${match.url}/:page`}
+              path={`:page`}
               render={props => (
                 <BookList
                   bookList={pages[props.match.params.page]}
@@ -80,6 +78,11 @@ export default class Main extends React.Component {
               )}
             />
           </Switch>
+          <PaginationComponent
+            pageNums={pageNums}
+            path={match.path}
+            activePageNum={0}
+          />
         </Container>
       </>
     )

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { isNil } from 'lodash'
 import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap'
+import './style.css'
 
 const BookListItem = props => (
   <Card
@@ -8,6 +10,7 @@ const BookListItem = props => (
     style={{ width: 'auto' }}
     className="card-book"
   >
+    {console.log(props)}
     <Container>
       <Row>
         <Col className="card-book-preview">
@@ -20,7 +23,9 @@ const BookListItem = props => (
         <Col>
           <Card.Body>
             <h3>
-              №{props.book.fields.no} {props.book.fields.name}
+              <Link className="book-title" to={`book/${props.book.sys.id}`}>
+                №{props.book.fields.no} {props.book.fields.name}
+              </Link>
             </h3>
             <Card.Text className="book-info">
               Датировка: {props.book.fields.year}
@@ -39,10 +44,21 @@ const BookListItem = props => (
         </Col>
       </Row>
     </Container>
-    <Card.Footer className="text-right">
-      <Link to={`book/${props.book.sys.id}`}>
-        <Button variant="primary">Подробнее</Button>
-      </Link>
+    <Card.Footer>
+      <Row>
+        <Col md={9} sm={8} xs={7} className="book-tags">
+          {isNil(props.book.fields.tags)
+            ? null
+            : props.book.fields.tags.map(tag => `#${tag}  `)}
+        </Col>
+        <Col md={3} sm={4} xs={5} className="text-right">
+          <Link to={`book/${props.book.sys.id}`}>
+            <Button className="button-custom" variant="primary">
+              Подробнее
+            </Button>
+          </Link>
+        </Col>
+      </Row>
     </Card.Footer>
   </Card>
 )

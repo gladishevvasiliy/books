@@ -36,7 +36,7 @@ export default class Book extends Component {
       <>
         <Container>
           <Row className="back-row">
-            <Link className="back-link" to={`/`}>
+            <Link className="back-link custom-link" to={`/`}>
               <FontAwesomeIcon icon="long-arrow-alt-left" />
               {`   `}
               Назад
@@ -75,7 +75,10 @@ export default class Book extends Component {
                     <td>Файлы *.pdf</td>
                     <td>
                       {!isNil(book.bookFile) ? (
-                        <a href={`https:${book.bookFile.fields.file.url}`}>
+                        <a
+                          href={`https:${book.bookFile.fields.file.url}`}
+                          className="custom-link"
+                        >
                           Загрузить
                         </a>
                       ) : null}

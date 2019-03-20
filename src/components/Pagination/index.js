@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Pagination } from 'react-bootstrap'
-
+import './style.css'
 export default class PaginationComponent extends React.Component {
   state = {
     activePageNum: this.props.activePageNum,
@@ -21,7 +21,7 @@ export default class PaginationComponent extends React.Component {
         {pageNums.map(pageNum =>
           pageNum === activePageNum ? (
             <li class="page-item active">
-              <span class="page-link">
+              <span class="page-link page-custom-active-link">
                 {pageNum + 1}
                 <span class="sr-only">(current)</span>
               </span>
@@ -30,9 +30,9 @@ export default class PaginationComponent extends React.Component {
             <li class="page-item">
               <Link
                 key={pageNum}
-                to={`${path}/${pageNum}`}
+                to={`/${pageNum}`}
                 onClick={() => this.changeActivePageNum(pageNum)}
-                class="page-link"
+                class="page-link page-custom-link"
                 role="button"
               >
                 {pageNum + 1}

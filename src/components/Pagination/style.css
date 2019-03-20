@@ -1,0 +1,13 @@
+.page-custom-active-link {
+    background-color: #795548 !important;
+    border-color:#4E342E !important;
+    
+}
+
+.page-custom-link {
+    color:#4E342E !important;
+}
+
+.page-custom-link:focus {
+    box-shadow: 0 0 0 .2rem rgba(62, 39, 35, 0.493);
+}

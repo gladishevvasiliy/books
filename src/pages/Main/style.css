@@ -1,10 +1,19 @@
 
 .main-container {
   padding-top: 20px;
+  margin-bottom: 100px;
 }
 .card-book {
   margin-bottom: 10px;
 }
 .card-book-preview {
   padding-left: 0 !important;
+}
+
+.book-title {
+  color: #000;
+}
+.book-title:hover {
+  color: #795548;
+  text-decoration: none;
 }

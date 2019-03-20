@@ -1,14 +1,30 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { isNil } from 'lodash'
-import { Form, Button, Card, Col, Container, Row } from 'react-bootstrap'
+import {
+  Form,
+  Button,
+  Card,
+  Col,
+  Container,
+  Row,
+  Collapse,
+} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './style.css'
+
+library.add(faSearch)
 
 export default class Search extends Component {
   constructor(props) {
     super(props)
 
     this.textInput = React.createRef()
+    this.state = {
+      open: false,
+    }
   }
 
   formHandler = e => {
@@ -46,58 +62,82 @@ export default class Search extends Component {
     getBooks()
   }
   render() {
+    const { open } = this.state
     return (
       <Container>
         <Card className="search-container">
-          <Card.Header>Поиск</Card.Header>
-          <Form
-            className="search-form"
-            onSubmit={this.formHandler}
-            ref={form => (this.textInput = form)}
-          >
-            <Form.Row>
-              <Form.Group as={Col} md="1" controlId="no">
-                <Form.Label>№</Form.Label>
-                <Form.Control size="sm" type="number" />
-              </Form.Group>
-              <Form.Group as={Col} md="2" controlId="name">
-                <Form.Label>Название книги</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-              <Form.Group as={Col} md="1" controlId="year">
-                <Form.Label>Датировка</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-              <Form.Group as={Col} md="2" controlId="location">
-                <Form.Label>Местность издания</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-              <Form.Group as={Col} md="2" controlId="size">
-                <Form.Label>Размер</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-              <Form.Group as={Col} md="2" controlId="fullness">
-                <Form.Label>Полнота и сохранность</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-              <Form.Group as={Col} md="2" controlId="binding">
-                <Form.Label>Переплет</Form.Label>
-                <Form.Control size="sm" type="text" />
-              </Form.Group>
-            </Form.Row>
+          <Card.Header>
             <Row>
-              <Col md={{ span: 1, offset: 9 }}>
-                <Button variant="secondary" onClick={this.resetSearch}>
-                  Сбросить поиск
-                </Button>
-              </Col>
-              <Col md={2} className="text-right">
-                <Button variant="primary" type="submit">
-                  Поиск
+              <Col>Поиск</Col>
+              <Col className="text-right">
+                <Button
+                  onClick={() => this.setState({ open: !open })}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+                  className="button-custom"
+                  size="sm"
+                >
+                  <FontAwesomeIcon icon={faSearch} color="#fff" />
                 </Button>
               </Col>
             </Row>
-          </Form>
+          </Card.Header>
+          <Collapse in={this.state.open}>
+            <div id="example-collapse-text">
+              <Form
+                className="search-form"
+                onSubmit={this.formHandler}
+                ref={form => (this.textInput = form)}
+              >
+                <Form.Row>
+                  <Form.Group as={Col} md="1" lg={1} controlId="no">
+                    <Form.Label>№</Form.Label>
+                    <Form.Control size="sm" type="number" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="2" lg={2} controlId="name">
+                    <Form.Label>Название</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="2" lg={2} controlId="year">
+                    <Form.Label>Датировка</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="3" lg={3} controlId="location">
+                    <Form.Label>Местность издания</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="2" lg={2} controlId="size">
+                    <Form.Label>Размер</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="4" lg={3} controlId="fullness">
+                    <Form.Label>Полнота и сохранность</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                  <Form.Group as={Col} md="2" lg={2} controlId="binding">
+                    <Form.Label>Переплет</Form.Label>
+                    <Form.Control size="sm" type="text" />
+                  </Form.Group>
+                </Form.Row>
+                <Row>
+                  <Col md={2} lg={1} className="text-left">
+                    <Button
+                      className="button-custom"
+                      variant="primary"
+                      type="submit"
+                    >
+                      Поиск
+                    </Button>
+                  </Col>
+                  <Col md={2} lg={1}>
+                    <Button variant="secondary" onClick={this.resetSearch}>
+                      Сбросить поиск
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          </Collapse>
         </Card>
       </Container>
     )
