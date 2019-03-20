@@ -20,22 +20,21 @@ export default class PaginationComponent extends React.Component {
       <Pagination>
         {pageNums.map(pageNum =>
           pageNum === activePageNum ? (
-            <li class="page-item active">
-              <span class="page-link page-custom-active-link">
-                {pageNum + 1}
-                <span class="sr-only">(current)</span>
+            <li key={pageNum} className="page-item active">
+              <span className="page-link page-custom-active-link">
+                {pageNum}
+                <span className="sr-only">(current)</span>
               </span>
             </li>
           ) : (
-            <li class="page-item">
+            <li key={pageNum} className="page-item">
               <Link
-                key={pageNum}
-                to={`/${pageNum}`}
+                to={`${path}/${pageNum}`}
                 onClick={() => this.changeActivePageNum(pageNum)}
-                class="page-link page-custom-link"
+                className="page-link page-custom-link"
                 role="button"
               >
-                {pageNum + 1}
+                {pageNum}
               </Link>
             </li>
           )

@@ -1,20 +1,18 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
+import { Route } from 'react-router-dom'
+import { Container, Alert } from 'react-bootstrap'
 import PaginationComponent from '../../components/Pagination'
 import { isNil } from 'lodash'
 import * as contentful from 'contentful'
 import Search from '../../components/Search'
 import BookList from '../../components/BookList'
-import Book from '../Book'
-import About from '../About'
 
 import './style.css'
 
 export default class Main extends React.Component {
   state = {
     pages: [],
-    activePageNum: 0,
+    activePageNum: 1,
     pageNums: [],
   }
 
@@ -41,7 +39,7 @@ export default class Main extends React.Component {
     const pageNums = []
     while (response.items.length > 0) {
       pages.push(response.items.splice(0, 2))
-      pageNums.push(i)
+      pageNums.push(i + 1)
       i++
     }
     this.setState({
@@ -59,30 +57,40 @@ export default class Main extends React.Component {
   render() {
     const { pages, pageNums } = this.state
     const { match } = this.props
-    if (pages.length === 0) return <h1>Загрузка...</h1>
+    if (pages.length === 0)
+      return (
+        <>
+          <Search getBooks={this.getBooks} />
+          <Container className="main-container">
+            <Alert variant="danger">Книг по данному запросу не найдено</Alert>
+          </Container>
+        </>
+      )
 
     return (
       <>
         <Search getBooks={this.getBooks} />
         <Container className="main-container">
-          <Switch>
-            <Route path="/book/:id" component={Book} />
-            <Route path="/about" component={About} />
-            <Route
-              path={`:page`}
-              render={props => (
-                <BookList
-                  bookList={pages[props.match.params.page]}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
-          <PaginationComponent
-            pageNums={pageNums}
-            path={match.path}
-            activePageNum={0}
+          <Route
+            path={`${match.path}/:page`}
+            render={props => (
+              <BookList
+                bookList={
+                  isNil(pages[props.match.params.page - 1])
+                    ? pages[0]
+                    : pages[props.match.params.page - 1]
+                }
+                {...props}
+              />
+            )}
           />
+          {pages.length === 1 ? null : (
+            <PaginationComponent
+              pageNums={pageNums}
+              path={match.path}
+              activePageNum={1}
+            />
+          )}
         </Container>
       </>
     )

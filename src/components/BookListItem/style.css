@@ -1,5 +1,9 @@
 .book-tags {
-    color: #A1887F;
-    font-size: 14pt;
-    padding-top: 5px;
+  color: #a1887f;
+  font-size: 14pt;
+  padding-top: 5px;
+}
+
+.card-book-info {
+  padding-left: 0 !important;
 }

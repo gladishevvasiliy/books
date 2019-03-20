@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { isNil } from 'lodash'
 import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap'
 import './style.css'
@@ -10,22 +9,21 @@ const BookListItem = props => (
     style={{ width: 'auto' }}
     className="card-book"
   >
-    {console.log(props)}
     <Container>
       <Row>
-        <Col className="card-book-preview">
+        <Col className="card-book-preview" xs={12} sm={12} md={6}>
           <Image
             variant="top"
             src={`https:${props.book.fields.preview.fields.file.url}`}
             fluid
           />
         </Col>
-        <Col>
+        <Col xs={12} sm={12} md={6} className="card-book-info">
           <Card.Body>
-            <h3>
-              <Link className="book-title" to={`book/${props.book.sys.id}`}>
-                №{props.book.fields.no} {props.book.fields.name}
-              </Link>
+            <h3
+              onClick={() => props.history.push(`/book/${props.book.sys.id}`)}
+            >
+              №{props.book.fields.no} {props.book.fields.name}
             </h3>
             <Card.Text className="book-info">
               Датировка: {props.book.fields.year}
@@ -52,11 +50,13 @@ const BookListItem = props => (
             : props.book.fields.tags.map(tag => `#${tag}  `)}
         </Col>
         <Col md={3} sm={4} xs={5} className="text-right">
-          <Link to={`book/${props.book.sys.id}`}>
-            <Button className="button-custom" variant="primary">
-              Подробнее
-            </Button>
-          </Link>
+          <Button
+            className="button-custom"
+            variant="primary"
+            onClick={() => props.history.push(`/book/${props.book.sys.id}`)}
+          >
+            Подробнее
+          </Button>
         </Col>
       </Row>
     </Card.Footer>

@@ -120,7 +120,7 @@ export default class Search extends Component {
                   </Form.Group>
                 </Form.Row>
                 <Row>
-                  <Col md={2} lg={1} className="text-left">
+                  <Col xs={2} md={2} lg={1} className="text-left">
                     <Button
                       className="button-custom"
                       variant="primary"
@@ -129,7 +129,7 @@ export default class Search extends Component {
                       Поиск
                     </Button>
                   </Col>
-                  <Col md={2} lg={1}>
+                  <Col xs={2} md={2} lg={1}>
                     <Button variant="secondary" onClick={this.resetSearch}>
                       Сбросить поиск
                     </Button>

@@ -17,8 +17,10 @@ class App extends Component {
       <>
         <Header />
         <Switch>
-          <Redirect from="/" exact to="/0" />
-          <Route path="/" component={Main} />
+          <Redirect from="/" exact to="home/1" />
+          <Route path="/about" component={About} />
+          <Route path="/book/:id" component={Book} />
+          <Route path="/home" component={Main} />
         </Switch>
         <Footer />
       </>
