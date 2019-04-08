@@ -31,6 +31,7 @@ export default class Book extends Component {
 
   render() {
     const { book } = this.state
+    console.log(book)
     if (isNil(book.preview)) return null
     return (
       <>
@@ -75,10 +76,7 @@ export default class Book extends Component {
                     <td>Файлы *.pdf</td>
                     <td>
                       {!isNil(book.bookFile) ? (
-                        <a
-                          href={`https:${book.bookFile.fields.file.url}`}
-                          className="custom-link"
-                        >
+                        <a href={book.bookFile} className="custom-link">
                           Загрузить
                         </a>
                       ) : null}
