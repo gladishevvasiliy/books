@@ -35,7 +35,7 @@ export default class Book extends Component {
     if (isNil(book.preview)) return null
     return (
       <>
-        <Container>
+        <Container className="main-container">
           <Row className="back-row">
             <Link className="back-link custom-link" to={`/`}>
               <FontAwesomeIcon icon="long-arrow-alt-left" />

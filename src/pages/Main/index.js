@@ -38,7 +38,7 @@ export default class Main extends React.Component {
     const pages = []
     const pageNums = []
     while (response.items.length > 0) {
-      pages.push(response.items.splice(0, 2))
+      pages.push(response.items.splice(0, 10))
       pageNums.push(i + 1)
       i++
     }
