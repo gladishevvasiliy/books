@@ -12,11 +12,13 @@ const BookListItem = props => (
     <Container>
       <Row>
         <Col className="card-book-preview" xs={12} sm={12} md={6}>
-          <Image
-            variant="top"
-            src={`https:${props.book.fields.preview.fields.file.url}`}
-            fluid
-          />
+          {isNil(props.book.fields.preview.fields) ? null : (
+            <Image
+              variant="top"
+              src={`https:${props.book.fields.preview.fields.file.url}`}
+              fluid
+            />
+          )}
         </Col>
         <Col xs={12} sm={12} md={6} className="card-book-info">
           <Card.Body>

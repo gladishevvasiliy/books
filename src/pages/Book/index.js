@@ -4,6 +4,7 @@ import { Container, Col, Row, Table, Carousel } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as contentful from 'contentful'
 import { isNil } from 'lodash'
+import Examples from '../../components/Examples'
 import './style.css'
 
 export default class Book extends Component {
@@ -86,17 +87,9 @@ export default class Book extends Component {
               </Table>
             </Col>
             <Col md={8}>
-              <Carousel>
-                {book.examples.map(example => (
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={`https:${example.fields.file.url}`}
-                      alt="First slide"
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
+              {isNil(book.examples) ? null : (
+                <Examples examples={book.examples} />
+              )}
             </Col>
           </Row>
         </Container>
