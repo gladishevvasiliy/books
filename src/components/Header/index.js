@@ -17,7 +17,7 @@ export default () => {
         Библиотека
       </Link>
       <Nav className="mr-auto">
-        <Link className="header-link nav-link" to={`/about`}>
+        <Link className="header-link nav-link" to={`/books/about`}>
           О Нас
         </Link>
       </Nav>

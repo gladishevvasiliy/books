@@ -13,7 +13,7 @@ export default () => {
   return (
     <Navbar className="footer" fixed="bottom">
       <Nav className="mr-auto">
-        <Link className="header-link nav-link" to={`/about`}>
+        <Link className="header-link nav-link" to={`books/about`}>
           О Нас
         </Link>
         <Nav.Link href="https://vk.com/kirovold">

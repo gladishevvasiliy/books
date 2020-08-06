@@ -3,7 +3,7 @@ import { isNil } from 'lodash'
 import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap'
 import './style.css'
 
-const BookListItem = props => (
+const BookListItem = (props) => (
   <Card
     key={props.book.fields.no}
     style={{ width: 'auto' }}
@@ -49,13 +49,15 @@ const BookListItem = props => (
         <Col md={9} sm={8} xs={7} className="book-tags">
           {isNil(props.book.fields.tags)
             ? null
-            : props.book.fields.tags.map(tag => `#${tag}  `)}
+            : props.book.fields.tags.map((tag) => `#${tag}  `)}
         </Col>
         <Col md={3} sm={4} xs={5} className="text-right">
           <Button
             className="button-custom"
             variant="primary"
-            onClick={() => props.history.push(`/book/${props.book.sys.id}`)}
+            onClick={() =>
+              props.history.push(`/books/book/${props.book.sys.id}`)
+            }
           >
             Подробнее
           </Button>

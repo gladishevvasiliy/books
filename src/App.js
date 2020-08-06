@@ -17,12 +17,12 @@ class App extends Component {
       <>
         <Header />
         <Switch>
-          <Redirect from="/" exact to="home/1" />
+          <Redirect from="/" exact to="/books/home/1" />
           {/* Добавлен редирект для помещения на сайт */}
-          <Redirect from="/books" exact to="home/1" />
-          <Route path="/about" component={About} />
-          <Route path="/book/:id" component={Book} />
-          <Route path="/home" component={Main} />
+          <Redirect from="/books" exact to="/books/home/1" />
+          <Route path="/books/about" component={About} />
+          <Route path="/books/book/:id" component={Book} />
+          <Route path="/books/home" component={Main} />
         </Switch>
         <Footer />
       </>
