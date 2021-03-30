@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Col, Row, Table, Carousel } from 'react-bootstrap'
+import { Container, Col, Row, Table } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as contentful from 'contentful'
 import { isNil } from 'lodash'
@@ -24,7 +24,7 @@ export default class Book extends Component {
 
   fetchBook = () => this.client.getEntry(this.props.match.params.id)
 
-  setBook = response => {
+  setBook = (response) => {
     this.setState({
       book: response.fields,
     })

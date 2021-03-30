@@ -27,7 +27,7 @@ export default class Search extends Component {
     }
   }
 
-  formHandler = e => {
+  formHandler = (e) => {
     const { getBooks } = this.props
     e.preventDefault()
     const {
@@ -43,14 +43,14 @@ export default class Search extends Component {
     const fields = [no, name, year, location, size, fullness, binding]
     let options = { content_type: 'book' }
 
-    fields.map(field => {
-      if (field.value.length === 0) return
+    fields.map((field) => {
+      if (field.value.length === 0) return null
       if (field.id === 'no' && !isNil(field.value)) {
         options = {
           ...options,
           ['fields.' + field.id]: field.value,
         }
-        return
+        return null
       }
       options = { ...options, ['fields.' + field.id + '[match]']: field.value }
     })
@@ -87,7 +87,7 @@ export default class Search extends Component {
               <Form
                 className="search-form"
                 onSubmit={this.formHandler}
-                ref={form => (this.textInput = form)}
+                ref={(form) => (this.textInput = form)}
               >
                 <Form.Row>
                   <Form.Group as={Col} md="1" lg={1} controlId="no">

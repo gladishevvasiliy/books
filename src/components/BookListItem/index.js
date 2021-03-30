@@ -23,7 +23,9 @@ const BookListItem = (props) => (
         <Col xs={12} sm={12} md={6} className="card-book-info">
           <Card.Body>
             <h3
-              onClick={() => props.history.push(`/book/${props.book.sys.id}`)}
+              onClick={() =>
+                props.history.push(`/books/book/${props.book.sys.id}`)
+              }
             >
               №{props.book.fields.no} {props.book.fields.name}
             </h3>
